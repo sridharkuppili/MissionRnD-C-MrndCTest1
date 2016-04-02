@@ -30,8 +30,73 @@ Difficulty : Medium
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+int arithmetic(int k, int d, int *arr,int len)
+{
+	int i;
+	for (i = k+1; i < len; i++)
+	{
+		if (d != arr[i] - arr[i - 1])
+			break;
+	}
+	return i;
+}
+int geometric(int k, int d, int *arr, int len)
+{
+	int i;
+	for (i = k + 1; i < len; i++)
+	{
+		if (d != ((float)arr[i] / (float)arr[i - 1]))
+			break;
+	}
+	return i;
+}
 
-int * find_sequences(int *arr, int len){
+int * find_sequences(int *arr, int len)
+{
+	int *res;
+	int i = 0, d1, d2, diff,k=0,r=0;
+	res = (int *)malloc(6 * sizeof(int));
+
+	/*for (i = 1; i < len; i++)
+	{
+	//d1 = arr[len] - arr[len - 1];
+	if (arr[i] - arr[i - 1] == arr[i + 1] - arr[i])
+	{
+	diff = arr[i] - arr[i - 1];
+	//as(arr, len);
+	}
+	break;
+	}*/
+	if (len < 0 || arr == '\0')
+		return NULL;
+	else
+	{
+		while (i < 4)
+		{
+			if (arr[k + 1] - arr[k] == arr[k + 2] - arr[k + 1])
+			{
+				res[r] = k;
+				r++;
+				diff = arr[k + 1] - arr[k];
+				k = arithmetic(k, diff, arr, len);
+				res[r] = k;
+				r++;
+			}
+			else if (((float)arr[k + 1] / (float)arr[k]) == ((float)arr[k + 2] / (float)arr[k + 1]))
+			{
+				res[4] = k;
+				diff = arr[k + 1] / arr[k];
+				k = geometric(k, diff, arr, len);
+				res[5] = k;
+			}
+			i++;
+		}
+	}
+
+	return res;
+
+
+
 	//Return final array which has 6indexes [AP1_S,AP1_E,AP2_S,AP2_E,GP1_S,GP2_E]
 	return NULL;
 }
